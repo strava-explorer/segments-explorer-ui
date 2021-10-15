@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { exchangeAccessToken } from '../actions/authorization';
 import { getActivities } from '../actions/activities';
+import { getMapsUrl } from '../actions/maps';
 
 const Explorer = (props) => {
 
@@ -29,6 +30,9 @@ const Explorer = (props) => {
   return (
     <div>
       Explorer
+      <div>
+        <img src={getMapsUrl(activities)} />
+      </div>
       <div>
         {activities.filter(activity => activity['type'] == 'Run').map(activity => {
           return (
