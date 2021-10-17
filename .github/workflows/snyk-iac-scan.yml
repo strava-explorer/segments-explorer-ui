@@ -13,7 +13,7 @@ jobs:
 
       - name: Run Snyk to check configuration files for security issues
         continue-on-error: true
-        run: snyk iac test --sarif > snyk.sarif
+        run: snyk iac test *.yaml --sarif > snyk.sarif
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
