@@ -1,0 +1,23 @@
+branches:
+  only:
+    - master
+
+language: node_js
+
+services:
+  - docker
+
+before_install:
+  - nvm install 14
+  - node --version
+
+install:
+  - npm install
+  - docker build -t dhavelock/segments-ui:latest -t dhavelock/segments-ui:$TRAVIS_BUILD_NUMBER .
+  - npm install -g snyk
+
+deploy:
+  provider: script
+  script: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin; docker push dhavelock/segments-ui:$TRAVIS_BUILD_NUMBER; docker push dhavelock/segments-ui:latest
+  on:
+    branch: master
