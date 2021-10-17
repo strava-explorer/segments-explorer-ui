@@ -23,13 +23,10 @@ spec:
         - name: REACT_APP_STRAVA_CLIENT_ID
           valueFrom:
             secretKeyRef:
-              name: segments-ui-secret
-              key: segments-ui-strava-client-id
+              name: segments-api-secret
+              key: segments-api-strava-client-id
         - name: REACT_APP_GOOGLE_MAPS_API_KEY
-          valueFrom:
-            secretKeyRef:
-              name: segments-ui-secret
-              key: segments-ui-google-maps-api-key
+          value: AIzaSyCOfdNF9WDSN7mGltPXo8yqugi5zlnvZ0g
         - name: REACT_APP_API_ACTIVITIES_PATH
           value: '/api/activities'
         - name: REACT_APP_API_AUTHORIZE_PATH
@@ -39,10 +36,7 @@ spec:
         - name: REACT_APP_STRAVA_AUTH_URL
           value: 'https://www.strava.com/oauth'
         - name: REACT_APP_API_BASE_URL
-          valueFrom: 
-            configMapKeyRef:
-              name: segments-configmap
-              key: segments-api-url
+          value: 'http://127.0.0.1:8080'
 ---
 apiVersion: v1
 kind: Service
