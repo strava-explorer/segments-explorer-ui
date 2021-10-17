@@ -16,6 +16,8 @@ install:
   - docker build -t dhavelock/segments-ui:latest -t dhavelock/segments-ui:$TRAVIS_BUILD_NUMBER .
   - npm install -g snyk
 
+script: echo "Success!"
+
 deploy:
   provider: script
   script: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin; docker push dhavelock/segments-ui:$TRAVIS_BUILD_NUMBER; docker push dhavelock/segments-ui:latest
