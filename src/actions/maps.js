@@ -1,4 +1,4 @@
-const GOOGLE_MAPS_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY
+const GOOGLE_MAPS_KEY = window._env_.REACT_APP_GOOGLE_MAPS_API_KEY
 
 export const getMapsUrl = (activities) => {
   var mapsUrl = `https://maps.googleapis.com/maps/api/staticmap?size=800x400&maptype=roadmap&key=${GOOGLE_MAPS_KEY}`

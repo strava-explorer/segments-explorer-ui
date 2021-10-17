@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: segments-ui
+  labels:
+    app: segments-ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: segments-ui
+  template:
+    metadata:
+      labels:
+        app: segments-ui
+    spec:
+      containers:
+      - name: segments-ui
+        image: dhavelock/segments-ui:latest
+        ports:
+        - containerPort: 80
+        env:
+        - name: REACT_APP_STRAVA_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: segments-ui-secret
+              key: segments-ui-strava-client-id
+        - name: REACT_APP_GOOGLE_MAPS_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: segments-ui-secret
+              key: segments-ui-google-maps-api-key
+        - name: REACT_APP_API_ACTIVITIES_PATH
+          value: '/api/activities'
+        - name: REACT_APP_API_AUTHORIZE_PATH
+          value: '/authorize/token'
+        - name: REACT_APP_UI_REDIRECT_PATH
+          value: '/explorer'
+        - name: REACT_APP_STRAVA_AUTH_URL
+          value: 'https://www.strava.com/oauth'
+        - name: REACT_APP_API_BASE_URL
+          valueFrom: 
+            configMapKeyRef:
+              name: segments-configmap
+              key: segments-api-url
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: segments-ui-service
+spec:
+  selector:
+    app: segments-ui
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 30002
