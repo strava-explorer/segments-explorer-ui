@@ -17,7 +17,7 @@ install:
   - npm install -g snyk
   - snyk test --fail-on=all
   - snyk code test --fail-on=all
-  - snyk container test dhavelock/segments-ui:$TRAVIS_BUILD_NUMBER
+  - snyk container test dhavelock/segments-ui:$TRAVIS_BUILD_NUMBER --fail-on=all
   - snyk iac test *.yaml --severity-threshold=high
 
 script: echo "Success!"
